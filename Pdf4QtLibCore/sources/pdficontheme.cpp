@@ -78,7 +78,11 @@ void PDFIconTheme::prepareTheme()
             {
                 {
                     QTextStream stream(&file);
+#if 0
                     stream.setEncoding(QStringConverter::Utf8);
+#else
+                    stream.setCodec("UTF-8");
+#endif
                     stream.setGenerateByteOrderMark(true);
                     for (const QString& text : infoList)
                     {

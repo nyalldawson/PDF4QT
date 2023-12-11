@@ -472,10 +472,10 @@ constexpr bool isRectangleVerticallyOverlapped(const QRectF& r1, const QRectF& r
 
 inline QColor invertColor(QColor color)
 {
-    float r = 0.0;
-    float g = 0.0;
-    float b = 0.0;
-    float a = 0.0;
+    double r = 0.0;
+    double g = 0.0;
+    double b = 0.0;
+    double a = 0.0;
 
     color.getRgbF(&r, &g, &b, &a);
 

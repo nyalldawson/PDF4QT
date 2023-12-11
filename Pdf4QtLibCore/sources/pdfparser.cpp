@@ -710,7 +710,8 @@ PDFObject PDFParser::getObject()
     {
         case PDFLexicalAnalyzer::TokenType::Boolean:
         {
-            Q_ASSERT(m_lookAhead1.data.typeId() == QMetaType::Bool);
+            //Q_ASSERT(m_lookAhead1.data.typeId() == QMetaType::Bool);
+            Q_ASSERT(m_lookAhead1.data.type() == QVariant::Bool);
             const bool value = m_lookAhead1.data.toBool();
             shift();
             return PDFObject::createBool(value);
@@ -718,7 +719,8 @@ PDFObject PDFParser::getObject()
 
         case PDFLexicalAnalyzer::TokenType::Integer:
         {
-            Q_ASSERT(m_lookAhead1.data.typeId() == QMetaType::LongLong);
+            //Q_ASSERT(m_lookAhead1.data.typeId() == QMetaType::LongLong);
+            Q_ASSERT(m_lookAhead1.data.type() == QVariant::LongLong);
             const PDFInteger value = m_lookAhead1.data.toLongLong();
             shift();
 
@@ -728,7 +730,8 @@ PDFObject PDFParser::getObject()
                 m_lookAhead2.type == PDFLexicalAnalyzer::TokenType::Command &&
                 m_lookAhead2.data.toByteArray() == PDF_REFERENCE_COMMAND)
             {
-                Q_ASSERT(m_lookAhead1.data.typeId() == QMetaType::LongLong);
+                //Q_ASSERT(m_lookAhead1.data.typeId() == QMetaType::LongLong);
+                Q_ASSERT(m_lookAhead1.data.type() == QVariant::LongLong);
                 const PDFInteger generation = m_lookAhead1.data.toLongLong();
                 shift();
                 shift();
@@ -743,7 +746,8 @@ PDFObject PDFParser::getObject()
 
         case PDFLexicalAnalyzer::TokenType::Real:
         {
-            Q_ASSERT(m_lookAhead1.data.typeId() == QMetaType::Double);
+            //Q_ASSERT(m_lookAhead1.data.typeId() == QMetaType::Double);
+            Q_ASSERT(m_lookAhead1.data.type() == QVariant::Double);
             const PDFReal value = m_lookAhead1.data.toDouble();
             shift();
             return PDFObject::createReal(value);
@@ -751,7 +755,8 @@ PDFObject PDFParser::getObject()
 
         case PDFLexicalAnalyzer::TokenType::String:
         {
-            Q_ASSERT(m_lookAhead1.data.typeId() == QMetaType::QByteArray);
+            //Q_ASSERT(m_lookAhead1.data.typeId() == QMetaType::QByteArray);
+            Q_ASSERT(m_lookAhead1.data.type() == QVariant::ByteArray);
             QByteArray array = m_lookAhead1.data.toByteArray();
             array.shrink_to_fit();
             shift();
@@ -760,7 +765,8 @@ PDFObject PDFParser::getObject()
 
         case PDFLexicalAnalyzer::TokenType::Name:
         {
-            Q_ASSERT(m_lookAhead1.data.typeId() == QMetaType::QByteArray);
+            //Q_ASSERT(m_lookAhead1.data.typeId() == QMetaType::QByteArray);
+            Q_ASSERT(m_lookAhead1.data.type() == QVariant::ByteArray);
             QByteArray array = m_lookAhead1.data.toByteArray();
             array.shrink_to_fit();
             shift();

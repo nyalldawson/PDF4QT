@@ -66,7 +66,8 @@ public:
     inline ~PDFOpenSSLGlobalLock() = default;
 
 private:
-    QMutexLocker<QRecursiveMutex> m_mutexLocker;
+    QMutexLocker m_mutexLocker;
+    //QMutexLocker<QRecursiveMutex> m_mutexLocker;
 };
 
 PDFSignatureReference PDFSignatureReference::parse(const PDFObjectStorage* storage, PDFObject object)

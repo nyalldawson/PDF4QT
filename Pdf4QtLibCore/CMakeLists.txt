@@ -25,7 +25,7 @@ project(PDF4QT VERSION ${PDF4QT_VERSION} LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Svg Xml)
+find_package(Qt5 REQUIRED COMPONENTS Core Gui Svg Xml)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
@@ -174,19 +174,24 @@ GENERATE_EXPORT_HEADER(Pdf4QtLibCore
 
 
 find_package(OpenSSL REQUIRED)
-find_package(lcms REQUIRED)
+#find_package(lcms REQUIRED)
 find_package(ZLIB REQUIRED)
-find_package(freetype REQUIRED)
+find_package(Freetype REQUIRED)
 find_package(OpenJPEG CONFIG REQUIRED)
 find_package(JPEG REQUIRED)
 
-target_link_libraries(Pdf4QtLibCore PRIVATE Qt6::Core Qt6::Gui Qt6::Xml Qt6::Svg)
-target_link_libraries(Pdf4QtLibCore PRIVATE lcms2::lcms2)
+target_link_libraries(Pdf4QtLibCore PRIVATE Qt5::Core Qt5::Gui Qt5::Xml Qt5::Svg)
+#target_link_libraries(Pdf4QtLibCore PRIVATE lcms2::lcms2)
 target_link_libraries(Pdf4QtLibCore PRIVATE OpenSSL::SSL OpenSSL::Crypto)
 target_link_libraries(Pdf4QtLibCore PRIVATE ZLIB::ZLIB)
 target_link_libraries(Pdf4QtLibCore PRIVATE freetype)
 target_link_libraries(Pdf4QtLibCore PRIVATE openjp2)
 target_link_libraries(Pdf4QtLibCore PRIVATE JPEG::JPEG)
+
+target_include_directories(Pdf4QtLibCore PUBLIC SYSTEM
+    ${FREETYPE_INCLUDE_DIRS}
+    ${OPENJPEG_INCLUDES}
+)
 
 if(PDF4QT_ENABLE_OPENGL)
     target_link_libraries(Pdf4QtLibCore PRIVATE Qt6::OpenGL)

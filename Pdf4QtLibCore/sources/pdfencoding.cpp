@@ -19,7 +19,9 @@
 #include "pdfdbgheap.h"
 
 #include <QTimeZone>
+#if 0
 #include <QStringDecoder>
+#endif
 
 #include <cctype>
 #include <cstring>
@@ -2374,28 +2376,44 @@ QString PDFEncoding::convertSmartFromByteStringToUnicode(const QByteArray& strea
     if (hasUnicodeLeadMarkings(stream))
     {
         {
+#if 0
             QStringDecoder decoder(QStringDecoder::Utf16BE);
             QString text = decoder.decode(stream);
-
             if (!decoder.hasError())
             {
                 return text;
             }
+#else
+            QTextCodec *codec = QTextCodec::codecForName("UTF-16BE");
+            QString text = codec->toUnicode(stream);
+// TODO -- errors?
+            return text;
+#endif
+
+
         }
 
         {
+#if 0
             QStringDecoder decoder(QStringDecoder::Utf16LE);
             QString text = decoder.decode(stream);
-
             if (!decoder.hasError())
             {
                 return text;
             }
+#else
+            QTextCodec *codec = QTextCodec::codecForName("UTF-16LE");
+            QString text = codec->toUnicode(stream);
+// TODO -- errors?
+            return text;
+#endif
+
         }
     }
 
     if (hasUTF8LeadMarkings(stream))
     {
+#if 0
         QStringDecoder decoder(QStringDecoder::Utf8);
         QString text = decoder.decode(stream);
 
@@ -2403,6 +2421,12 @@ QString PDFEncoding::convertSmartFromByteStringToUnicode(const QByteArray& strea
         {
             return text;
         }
+#else
+        QTextCodec *codec = QTextCodec::codecForName("UTF-8");
+        QString text = codec->toUnicode(stream);
+        // TODO -- errors?
+        return text;
+#endif
     }
 
     if (canConvertFromEncoding(stream, Encoding::PDFDoc))

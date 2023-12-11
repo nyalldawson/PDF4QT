@@ -115,10 +115,12 @@ QImage PDFColorConvertor::convert(QImage image) const
 
         case Mode::Grayscale:
         {
-            QImage alpha = image.convertedTo(QImage::Format_Alpha8);
-            QImage grayscaleImage = image.convertedTo(QImage::Format_Grayscale8);
+            QImage alpha = image;
+            image.convertTo(QImage::Format_Alpha8);
+            QImage grayscaleImage = image;
+            grayscaleImage.convertTo(QImage::Format_Grayscale8);
             QImage resultImage = grayscaleImage;
-            resultImage = resultImage.convertedTo(QImage::Format_ARGB32);
+            resultImage.convertTo( QImage::Format_ARGB32);
             resultImage.setAlphaChannel(std::move(alpha));
             return resultImage;
         }
